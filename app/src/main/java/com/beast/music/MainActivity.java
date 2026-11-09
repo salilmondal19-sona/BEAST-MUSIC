@@ -22,7 +22,6 @@ public class MainActivity extends Activity {
 
     ArrayList<String> songs = new ArrayList<>();
     ArrayList<Uri> paths = new ArrayList<>();
-
     MediaPlayer player;
     int current = -1;
 
@@ -124,7 +123,19 @@ public class MainActivity extends Activity {
                     long id = c.getLong(0);
                     songs.add(c.getString(1));
 
-                    Uri uri = Uricd ~/BEAST-MUSIC
+                    Uri uri = Uri.withAppendedPath(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        String.valueOf(id));
+
+                    paths.add(uri);
+                }
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+            this,
+            android.R.layout.simple_list_item_1
+cd ~/BEAST-MUSIC
 
 cat > app/src/main/java/com/beast/music/MainActivity.java <<'EOF'
 package com.beast.music;
@@ -151,7 +162,6 @@ public class MainActivity extends Activity {
 
     ArrayList<String> songs = new ArrayList<>();
     ArrayList<Uri> paths = new ArrayList<>();
-
     MediaPlayer player;
     int current = -1;
 
@@ -281,8 +291,7 @@ public class MainActivity extends Activity {
             current = index;
             player = new MediaPlayer();
 
-            player.setDataSource(
-                this, paths.get(index));
+            player.setDataSource(this, paths.get(index));
 
             player.setOnCompletionListener(
                 mp -> playSong(current + 1));
